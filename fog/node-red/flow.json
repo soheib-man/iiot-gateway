@@ -1,0 +1,68 @@
+[
+  {
+    "id": "mqtt_in",
+    "type": "mqtt in",
+    "name": "Sensor Data",
+    "topic": "iiot/sensor/data",
+    "qos": "0",
+    "datatype": "json",
+    "broker": "mqtt_broker",
+    "x": 120,
+    "y": 200,
+    "wires": [["json_parse"]]
+  },
+  {
+    "id": "json_parse",
+    "type": "json",
+    "name": "Parse JSON",
+    "property": "payload",
+    "x": 300,
+    "y": 200,
+    "wires": [["influx_format"]]
+  },
+  {
+    "id": "influx_format",
+    "type": "function",
+    "name": "Format for InfluxDB",
+    "func": "return {\n  payload: [{\n    measurement: 'environment',\n    tags: { gateway: 'esp32-s3' },\n    fields: {\n      ntc10k:  msg.payload.ntc10k,\n      ntc20k:  msg.payload.ntc20k,\n      qfmHum:  msg.payload.qfmHum,\n      qfmTemp: msg.payload.qfmTemp\n    }\n  }]\n};",
+    "outputs": 1,
+    "x": 500,
+    "y": 200,
+    "wires": [["influx_out", "debug"]]
+  },
+  {
+    "id": "influx_out",
+    "type": "influxdb out",
+    "name": "Write to InfluxDB",
+    "influxdb": "influx_config",
+    "measurement": "",
+    "x": 720,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "debug",
+    "type": "debug",
+    "name": "Debug Output",
+    "active": true,
+    "x": 720,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "mqtt_broker",
+    "type": "mqtt-broker",
+    "name": "Mosquitto",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "nodered-gateway"
+  },
+  {
+    "id": "influx_config",
+    "type": "influxdb",
+    "hostname": "localhost",
+    "port": "8086",
+    "database": "iiot",
+    "name": "InfluxDB Local"
+  }
+]

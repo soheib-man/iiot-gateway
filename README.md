@@ -691,8 +691,9 @@ iiot-gateway/
 
 | Name | GitHub | Role |
 |------|--------|------|
-| Soheib | [@YOUR-USERNAME](https://github.com/YOUR-USERNAME) | Hardware wiring, sensor integration, firmware development |
-| Abderrahim Megrouz | [@megrouz-abderrahim](https://github.com/megrouz-abderrahim) | Contributor |
+| Soheib miloudi| [@YOUR-USERNAME](https://github.com/soheib_man) | Hardware wiring, sensor integration, firmware development |
+| Abderrahim Megrouz | [@megrouz-abderrahim](https://github.com/megrouz-abderrahim) | Hardware wiring, sensor integration, firmware development |
+| madina  | [@YOUR-USERNAME](https://github.com/dynatella) | node red config, mqtt integration,   fog development |
 
 ---
 
